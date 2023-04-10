@@ -1,0 +1,7 @@
+project(InsEmb LANGUAGES CXX)
+add_executable(InsEmb inst.cpp)
+set(IR2VEC_INSTALL_DIR "" CACHE PATH "IR2Vec installation directory")
+find_package(IR2Vec REQUIRED)
+set(IR2VEC_INSTALL_DIR ${IR2VEC_ROOT_DIR})
+include_directories("${IR2VEC_INSTALL_DIR}/include")
+target_link_libraries(InsEmb PUBLIC ${IR2VEC_INSTALL_DIR}/lib/libIR2Vec.so)
