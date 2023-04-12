@@ -51,13 +51,6 @@ int main(int argc, char **argv) {
   llvm::LLVMContext context;
   llvm::SMDiagnostic error;
   auto modul = parseIRFile(ll_file_path, error, context);
-  // assert(module && "failed to parse IR");
-  // std::string myString("Hello World!");
-  // const char *str = "/workspace/IR2Vec/vocabulary/seedEmbeddingVocab-300-llvm12.txt";
-  // std::string vocab(str);
-  // vocab = str;
-  // std::string vocab =
-  //     "/workspace/IR2Vec/vocabulary/seedEmbeddingVocab-300-llvm12.txt";
 
   const char* mystr = "/workspace/IR2Vec/vocabulary/seedEmbeddingVocab-300-llvm12.txt";
   std::string mystring(mystr);
@@ -65,14 +58,17 @@ int main(int argc, char **argv) {
 
   auto ir2vec = IR2Vec::Embeddings(
       *modul, IR2Vec::IR2VecMode::Symbolic, vocab);
+  // auto ir2vec = IR2Vec::Embeddings(
+  //     *modul, IR2Vec::IR2VecMode::FlowAware, vocab);
   auto instVecMap = ir2vec.getInstVecMap();
   // Access the generated vectors
   for (auto instVec : instVecMap) {
-    std::cout << "Instruction : " << std::endl;
+    std::cout << std::endl << "Instruction : " << std::endl;
     instVec.first->print(llvm::outs());
-    std::cout << ": ";
+    std::cout << ": " << std::endl;
 
     for (auto val : instVec.second)
       std::cout << val << "\t";
+    std::cout << std::endl;
   }
 }

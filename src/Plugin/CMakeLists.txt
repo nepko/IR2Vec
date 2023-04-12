@@ -21,11 +21,11 @@ project(
     LANGUAGES CXX)
 
 # 查找引入LLVM 12
-find_package(LLVM  REQUIRED)
+find_package(LLVM 12 REQUIRED)
 
-# include_directories("/usr/include/llbm-12" "/usr/include/llvm-c-12")
+include_directories("/usr/include/llvm-12" "/usr/include/llvm-c-12")
 
 # 指定生成目标
 add_executable(InsEmb inst.cpp)
 # 添加链接库
-target_link_libraries(InsEmb PUBLIC libIR2Vec.so)
+target_link_libraries(InsEmb PUBLIC libIR2Vec.so LLVM)
